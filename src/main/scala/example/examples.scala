@@ -70,6 +70,30 @@ object examples {
     ("explicit flow for assignment a:=b ( should be false)", levs, stmt)
   }
 
+  def testdata5 = {
+    val levs: InfoLevMap =
+      Map(
+          Var("appointment_dates") -- false,
+          Var("appointment_types") -- true,
+          Var("patient_ids") -- true,
+          Var("appointment_date") -- false,
+          Var("appointment_type") -- true,
+          Var("patient_id") -- true,
+          Var("taken_time") -- false,
+          Var("is_free") -- false,
+    )
+
+    val stmt = Stmts(
+      List(
+        assign(Var("taken_time"), Var("appointment_dates")),
+        assign(Var("appointment_date"), Var("appointment_dates")),
+        assign(Var("appointment_type"), Var("appointment_types")),
+        assign(Var("patient_id"), Var("patient_ids"))
+      )
+    )
+    ("explicit flow for assignment a:=b ( should be false)", levs, stmt)
+  }
+
   def run = {
 
     Seq(testdata1, testdata2, testdata3, testdata4) foreach { case (name, lev, stmt) =>
