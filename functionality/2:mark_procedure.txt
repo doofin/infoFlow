@@ -1,0 +1,24 @@
+# Procedure (test, vaccine) in made to a certain patient
+integer file everybody procedure_results;
+integer file everybody procedure_types;
+integer file everybody procedure_dates;
+integer file admin patient_ids;
+
+# Procedure data for the doctor to input
+integer file doctor doctor_input;
+integer everybody procedure_result;
+integer everybody procedure_type;
+integer everybody procedure_date;
+integer doctor patient_id;
+
+# Doctor inputs the procedure and the patients ID
+input procedure_result from doctor_input;
+input procedure_type from doctor_input;
+input procedure_date from doctor_input;
+input patient_id from doctor_input;
+
+# Output the procedure data
+output procedure_result to procedure_results;
+output procedure_type to procedure_types;
+output procedure_date to procedure_dates;
+output patient_id to patient_ids;

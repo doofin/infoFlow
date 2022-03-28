@@ -1,0 +1,34 @@
+# Procedure has certain date, type and a patient
+integer file everybody procedure_dates;
+integer file admin procedure_types;
+integer file admin patient_ids;
+
+# Patients data to input
+integer file patient patient_input;
+integer everybody procedure_date;
+integer patient procedure_type;
+integer patient patient_id;
+
+# Helpers
+integer patient taken_time;
+integer patient is_free;
+
+# Patient enters date, type and their ID
+input procedure_date from patient_input;
+input procedure_type from patient_input;
+input patient_id from patient_input;
+
+# Check whether this date if free for an procedure
+is_free := 1;
+input taken_time from procedure_dates;
+while taken_time and is_free do
+    if taken_time == procedure_date then
+        is_free := 0;
+    else
+        input taken_time from procedure_dates;
+
+# Date is free, save the procedure
+if is_free then
+    output procedure_date to procedure_dates;
+    output procedure_type to procedure_types;
+    output patient_id to patient_ids;

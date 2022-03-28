@@ -1,0 +1,33 @@
+# Procedure (test, vaccination) data sources
+integer file everybody procedure_results;
+integer file everybody procedure_types;
+
+# Procedure data itself
+integer everybody procedure_result;
+integer everybody procedure_type;
+
+# Test positivity statistics
+integer everybody tests_count;
+integer everybody tests_positive;
+float everybody test_positivity_percentage;
+
+# Calculate the overall test positivity
+tests_count := 0;
+tests_positive := 0;
+
+# Read from DB
+input procedure_result from procedure_results;
+input procedure_type from procedure_types;
+
+while procedure_result do
+    if procedure_type == 1 then
+        if procedure_result == 1 then
+            tests_positive := tests_positive + 1;
+
+    tests_count := tests_count + 1;
+
+    # Read from DB
+    input procedure_result from procedure_results;
+    input procedure_type from procedure_types;
+
+test_positivity_percentage := tests_positive / tests_count;
