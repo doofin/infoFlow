@@ -1,0 +1,37 @@
+package example
+
+object infoFlowAST {
+
+  sealed trait InfoFlowStmt
+  sealed trait Expr
+  sealed trait ExprBool extends Expr
+
+  sealed trait Expr_a extends Expr
+
+  case class Var(x: String) extends Expr
+
+  object InfoFlowStmt {
+
+    case class Stmts(xs: List[InfoFlowStmt]) extends InfoFlowStmt
+
+    case class assign(nm: Var, a: Expr) extends InfoFlowStmt //var assignment :=
+
+    object Expr {
+      case object T extends ExprBool
+      case object F extends ExprBool
+      case class Not(x: ExprBool) extends ExprBool
+
+      case class intValue(x: Int) extends Expr_a
+      case class opA(a: Expr_a, b: Expr_a, op: String) extends Expr_a
+
+      case class opB(a: ExprBool, b: ExprBool, op: String) extends ExprBool
+      case class opR(a: Expr, b: Expr, op: String) extends ExprBool
+    }
+
+    case class If_(b: ExprBool, s1: InfoFlowStmt, s2: InfoFlowStmt) extends InfoFlowStmt //if
+//
+    case class While_(b: ExprBool, s: InfoFlowStmt) extends InfoFlowStmt
+
+  }
+
+}
