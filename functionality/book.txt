@@ -1,0 +1,26 @@
+database everybody appointment_dates;
+database admin appointment_types;
+database admin patient_ids;
+
+integer everybody appointment_date;
+integer patient appointment_type;
+integer patient patient_id;
+
+integer everybody taken_time;
+integer everybody is_free;
+
+input appointment_date;
+input appointment_type;
+input patient_id;
+
+is_free:=1;
+input taken_time from appointment_dates;
+while taken_time do
+    if taken_time == appointment_date then
+        is_free:=0;
+    input taken_time from appointment_dates;
+
+if is_free then
+    output appointment_date appointment_dates;
+    output appointment_type appointment_types;
+    output patient_id patient_ids;
