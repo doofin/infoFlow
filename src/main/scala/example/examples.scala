@@ -73,15 +73,15 @@ object examples {
   def testdata5 = {
     val levs: InfoLevMap =
       Map(
-          Var("appointment_dates") -- false,
-          Var("appointment_types") -- true,
-          Var("patient_ids") -- true,
-          Var("appointment_date") -- false,
-          Var("appointment_type") -- true,
-          Var("patient_id") -- true,
-          Var("taken_time") -- false,
-          Var("is_free") -- false,
-    )
+        Var("appointment_dates") -- false,
+        Var("appointment_types") -- true,
+        Var("patient_ids") -- true,
+        Var("appointment_date") -- false,
+        Var("appointment_type") -- true,
+        Var("patient_id") -- true,
+        Var("taken_time") -- false,
+        Var("is_free") -- false
+      )
 
     val stmt = Stmts(
       List(
@@ -96,7 +96,13 @@ object examples {
 
   def run = {
 
-    Seq(testdata1, testdata2, testdata3, testdata4) foreach { case (name, lev, stmt) =>
+    Seq(
+      testdata1,
+      testdata2,
+      testdata3,
+      testdata4,
+      book_appointment.book_appointment_data
+    ) foreach { case (name, lev, stmt) =>
       val res = checkInfoFlow(stmt, lev)
       println("checkInfoFlow ", name, "result:", res._2)
     }

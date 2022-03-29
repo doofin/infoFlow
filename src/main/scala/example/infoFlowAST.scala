@@ -10,6 +10,8 @@ object infoFlowAST {
 
   case class Var(x: String) extends Expr
 
+  def stmts(xs: InfoFlowStmt*) = InfoFlowStmt.Stmts(xs.toList)
+  
   object InfoFlowStmt {
 
     case class Stmts(xs: List[InfoFlowStmt]) extends InfoFlowStmt

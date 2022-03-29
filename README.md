@@ -9,6 +9,8 @@ false is low,true is high
 
 sbt 
 
+ide : vscode + metals
+
 # run
 
 sbt run
