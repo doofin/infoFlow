@@ -1,5 +1,10 @@
+# 02244 Logic For Security Spring 2022 at DTU
 # infoFlow
-02244 Logic For Security
+Contributors:
+- Mário Gažo (s212687@student.dtu.dk)
+- Filip Yankov (s210269@student.dtu.dk)
+- Yuchen Du (s212624@student.dtu.dk)
+
 
 # code 
 
