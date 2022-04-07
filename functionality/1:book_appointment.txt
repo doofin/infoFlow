@@ -1,24 +1,24 @@
 # Procedure has certain date, type and a patient
-integer file everybody procedure_dates;
-integer file admin procedure_types;
-integer file admin patient_ids;
+integer file Low procedure_dates;
+integer file High procedure_types;
+integer file High patient_ids;
 
 # Patients data to input
-integer file patient patient_input;
-integer everybody procedure_date;
-integer patient procedure_type;
-integer patient patient_id;
+integer file Low patient_input;
+integer Low procedure_date;
+integer High procedure_type;
+integer High patient_id;
 
 # Helpers
-integer patient taken_time;
-integer patient is_free;
+integer Low taken_time;
+integer Low is_free;
 
 # Patient enters date, type and their ID
 input procedure_date from patient_input;
 input procedure_type from patient_input;
 input patient_id from patient_input;
 
-# Check whether this date if free for an procedure
+# Check whether this date if free for a procedure
 is_free := 1;
 input taken_time from procedure_dates;
 while taken_time and is_free do
