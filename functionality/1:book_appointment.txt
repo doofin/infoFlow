@@ -1,12 +1,12 @@
 # Procedure has certain date, type and a patient
 integer file Low procedure_dates;
-integer file High procedure_types;
+integer file Low procedure_types;
 integer file High patient_ids;
 
 # Patients data to input
 integer file Low patient_input;
 integer Low procedure_date;
-integer High procedure_type;
+integer Low procedure_type;
 integer High patient_id;
 
 # Helpers
