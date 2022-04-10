@@ -16,15 +16,15 @@ object examples {
 
     val stmt = Stmts(
       List(
-        assign(Var("a"), Var("b")),
+        Var("a") := Var("b"),
         If_(
-          Expr.opR(Var("a"), Expr.intValue(11), "<="),
+          Var("a") <= Expr.intValue(11), //Expr.opR(Var("a"), Expr.intValue(11), "<="),
           assign(Var("b"), Expr.intValue(10)),
           assign(Var("a"), Expr.intValue(100))
         )
       )
     )
-    ("implicit flow in if block , a->b (should be false)", levs, stmt)
+    ("testdata1 implicit flow in if block , a->b (should be false)", levs, stmt)
   }
 
   //explicit flow for assignment a:=b ( should be true)
@@ -39,7 +39,7 @@ object examples {
         assign(Var("c"), Expr.intValue(1000))
       )
     )
-    ("explicit flow for assignment a:=b ( should be true)", levs, stmt)
+    ("testdata2 explicit flow for assignment a:=b ( should be true)", levs, stmt)
   }
   //explicit flow for assignment a:=b ( should be true)
   def testdata3 = {
@@ -53,7 +53,7 @@ object examples {
         assign(Var("c"), Expr.intValue(1000))
       )
     )
-    ("explicit flow for assignment a:=b ( should be true)", levs, stmt)
+    ("testdata3 explicit flow for assignment a:=b ( should be true)", levs, stmt)
   }
   //explicit flow for assignment a:=b ( should be false)
   def testdata4 = {
@@ -64,10 +64,11 @@ object examples {
       List(
         assign(Var("a"), Var("b")),
         assign(Var("b"), Expr.intValue(10)),
-        assign(Var("c"), Expr.intValue(1000))
+        assign(Var("c"), Expr.intValue(1000)),
+        While_(Var("a") && Var("b"), EmptyStmt)
       )
     )
-    ("explicit flow for assignment a:=b ( should be false)", levs, stmt)
+    ("testdata4 explicit flow for assignment a:=b ( should be false)", levs, stmt)
   }
 
   def run = {

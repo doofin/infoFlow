@@ -24,6 +24,7 @@ object infoFlowTree {
             case Expr.opB(a, b, op) => lub(checkExpr(a), checkExpr(b))
             case Expr.opR(a, b, op) => lub(checkExpr(a), checkExpr(b))
             case Expr.T | Expr.F    => false
+            case _                  => false
           }
         case expr_a: Expr_a =>
           expr_a match {
@@ -63,6 +64,7 @@ object infoFlowTree {
             s1r
           )
         )
+      case EmptyStmt => (false, true)
     }
 
     if (!r._2) {
