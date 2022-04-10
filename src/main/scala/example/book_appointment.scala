@@ -12,10 +12,10 @@ object book_appointment {
     val levs: InfoLevMap =
       Map(
         Var("appointment_dates") -- false,
-        Var("appointment_types") -- true,
+        Var("appointment_types") -- false,
         Var("patient_ids") -- true,
         Var("appointment_date") -- false,
-        Var("appointment_type") -- true,
+        Var("appointment_type") -- false,
         Var("patient_id") -- true,
         Var("taken_time") -- false,
         Var("is_free") -- false
@@ -28,7 +28,7 @@ object book_appointment {
         assign(Var("appointment_type"), Var("appointment_types")),
         assign(Var("patient_id"), Var("patient_ids")),
         While_(
-          Expr.opR(Var("a"), Expr.intValue(11), "<="),
+          Expr.opR(Var("taken_time"), Expr.intValue(11), "<="),
           stmts(
             assign(Var("patient_id"), Var("patient_ids")),
             assign(Var("appointment_type"), Var("appointment_types"))
