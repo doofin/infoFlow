@@ -1,15 +1,15 @@
 # Procedure (test, vaccine) in made to a certain patient
-integer file everybody procedure_results;
-integer file everybody procedure_types;
-integer file everybody procedure_dates;
-integer file admin patient_ids;
+integer file Low procedure_results;
+integer file Low procedure_types;
+integer file Low procedure_dates;
+integer file High patient_ids;
 
 # Procedure data for the doctor to input
-integer file doctor doctor_input;
-integer everybody procedure_result;
-integer everybody procedure_type;
-integer everybody procedure_date;
-integer doctor patient_id;
+integer file Low doctor_input;
+integer Low procedure_result;
+integer Low procedure_type;
+integer Low procedure_date;
+integer High patient_id;
 
 # Doctor inputs the procedure and the patients ID
 input procedure_result from doctor_input;
