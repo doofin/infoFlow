@@ -1,22 +1,20 @@
 # 02244 Logic For Security Spring 2022 at DTU
-# infoFlow
+# Project on Information Flow
 Contributors:
 - Mário Gažo (s212687@student.dtu.dk)
 - Filip Yankov (s210269@student.dtu.dk)
 - Yuchen Du (s212624@student.dtu.dk)
 
 
-# code 
+# Usage
+You use the analyser to verify the information flows.
+- set the variables map, each of them you set true if they are private, otherwise false
+- state the statement list including the IFs and WHILEs
+- return the test description, the variables map and the statements list
 
-false is low,true is high
+# Requirement
+- sbt
+- IDE: vscode + metals
 
-# requirement
-
-sbt 
-
-ide : vscode + metals
-
-# run
-
-sbt run
-
+# Run
+```sbt run```
