@@ -1,6 +1,7 @@
 package example
 
 import infoFlowAST._
+import scala.xml.dtd.Decl
 
 object infoFlowAST {
 
@@ -33,10 +34,37 @@ object infoFlowAST {
     }
 
     case class If_(b: ExprBool, s1: InfoFlowStmt, s2: InfoFlowStmt) extends InfoFlowStmt //if
-//
     case class While_(b: ExprBool, s: InfoFlowStmt) extends InfoFlowStmt
     case object EmptyStmt extends InfoFlowStmt
 
+    /**
+     * act-as: We define that a program can run on behalf of a particular entity or role.
+      • The special construct if acts for(X,Y) then Z
+     checks if the current process X is allowed to assume authority Y
+     and if so, executes command Z with that authority;
+      */
+    case class ifActsFor(s1: InfoFlowStmt, reader: String, s2: InfoFlowStmt)
+        extends InfoFlowStmt //if
+
+    /*
+  Declassify: When the program is acting as a participant p, then
+        it can declassify data, but only in two ways:
+         It can relax p’s constraint on data
+         It can remove p’s constraint on data
+     */
+    case class Declassify(s1: InfoFlowStmt) extends InfoFlowStmt //if
+//
+    /* add permission to stmt like {client:chkr} */
+    case class Annotated(s1: InfoFlowStmt, rules: Seq[Rules]) extends InfoFlowStmt //if
+
+    /* permission lattice p10 */
+    case class Rules(owner: String, reader: Seq[String])
+
+    ifActsFor(
+      EmptyStmt,
+      "chkr",
+      Declassify(Annotated(EmptyStmt, Seq(Rules("client", Seq("chkr")))))
+    )
   }
 
   implicit class opsBool(x: ExprBool) {
