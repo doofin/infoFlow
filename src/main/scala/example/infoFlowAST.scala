@@ -51,6 +51,7 @@ object infoFlowAST {
   implicit class opsExpr(x: Expr) {
     def <=(b: Expr) = opR(x, b, "<=")
     def >=(b: Expr) = opR(x, b, ">=")
+    def ===(b: Expr) = opR(x, b, "===")
   }
 
   implicit class opsVar(x: Var) {

@@ -29,7 +29,8 @@ object book_appointment {
             Var("is_free") := Expr.intValue(1),
             While_(
                 Var("taken_time") && Var("is_free"),
-                stmts(
+                If_(
+                    Var("taken_time") === Var("procedure_date"),
                     Var("is_free") := Expr.intValue(0),
                     Var("taken_time") := Var("procedure_date")
                 )
