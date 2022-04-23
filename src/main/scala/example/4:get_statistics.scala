@@ -31,18 +31,17 @@ object get_statistics {
                     Var("procedure_type") === Expr.intValue(1),
                         If_(
                             Var("procedure_result") === Expr.intValue(1),
-                            Var("tests_positive") := Var("test_positive") && Expr.intValue(1),
+                            Var("tests_positive") := Var("tests_positive") + Expr.intValue(1),
                             EmptyStmt
                         ),
                         EmptyStmt
-
                 ),
-                Var("tests_count") := Var("tests_count") && Expr.intValue(1),
+                Var("tests_count") := Var("tests_count") + Expr.intValue(1),
                 Var("procedure_result") := Var("procedure_results"),
                 Var("procedure_type") := Var("procedure_types")
                 )
             ),
-            Var("test_positivity_percentage") := Var("test_positive") / Var("test_count")
+            Var("test_positivity_percentage") := Var("tests_positive") / Var("tests_count")
         ))
         ("get_statistics", levs, stmt)
     }
