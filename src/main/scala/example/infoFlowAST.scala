@@ -76,17 +76,20 @@ object infoFlowAST {
   import InfoFlowStmt.Expr._
   import InfoFlowStmt._
 
+  // operations for bool
   implicit class opsExpr(x: Expr) {
     def <=(b: Expr) = opR(x, b, "<=")
     def >=(b: Expr) = opR(x, b, ">=")
     def ===(b: Expr) = opR(x, b, "===")
   }
 
+  // operations for number
   implicit class opsExpr_a(x: Expr_a) {
     def +(b: Expr_a) = opA(x, b, "+")
-    def /(b: Expr_a) = opA(x, b, "+")
+    def /(b: Expr_a) = opA(x, b, "/")
   }
 
+  // operations for var
   implicit class opsVar(x: Var) {
     def :=(b: Expr) = assign(x, b)
   }
