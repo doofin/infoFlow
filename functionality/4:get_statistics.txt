@@ -1,15 +1,15 @@
 # Procedure (test, vaccination) data sources
-integer file everybody procedure_results;
-integer file everybody procedure_types;
+integer file High procedure_results;
+integer file High procedure_types;
 
 # Procedure data itself
-integer everybody procedure_result;
-integer everybody procedure_type;
+integer Low procedure_result;
+integer Low procedure_type;
 
 # Test positivity statistics
-integer everybody tests_count;
-integer everybody tests_positive;
-float everybody test_positivity_percentage;
+integer Low tests_count;
+integer Low tests_positive;
+float Low test_positivity_percentage;
 
 # Calculate the overall test positivity
 tests_count := 0;

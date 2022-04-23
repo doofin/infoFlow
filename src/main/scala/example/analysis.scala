@@ -15,7 +15,9 @@ object analysis {
             testdata.testdata3,
             testdata.testdata4,
             book_appointment.book_appointment_data,
-            mark_procedure.mark_procedure_data
+            mark_procedure.mark_procedure_data,
+            retrieve_results.retrieve_results_data,
+            get_statistics.get_statistics_data
         ) foreach { case (name, lev, stmt) =>
             val res = checkInfoFlow(stmt, lev)
             println("test case: " + name + ", result: " + res._2)
