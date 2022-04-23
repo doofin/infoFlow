@@ -11,7 +11,7 @@ object infoFlowAST {
 
   sealed trait Expr_a extends Expr
 
-  case class Var(x: String) extends Expr with ExprBool
+  case class Var(x: String) extends Expr with ExprBool with Expr_a
 
   def stmts(xs: InfoFlowStmt*) = InfoFlowStmt.Stmts(xs.toList)
 
@@ -80,6 +80,11 @@ object infoFlowAST {
     def <=(b: Expr) = opR(x, b, "<=")
     def >=(b: Expr) = opR(x, b, ">=")
     def ===(b: Expr) = opR(x, b, "===")
+  }
+
+  implicit class opsExpr_a(x: Expr_a) {
+    def +(b: Expr_a) = opA(x, b, "+")
+    def /(b: Expr_a) = opA(x, b, "+")
   }
 
   implicit class opsVar(x: Var) {
