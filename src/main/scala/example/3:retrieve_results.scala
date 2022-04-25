@@ -14,39 +14,41 @@ object retrieve_results {
             Var("procedure_results") -- false,
             Var("procedure_types") -- false,
             Var("procedure_dates") -- false,
-            Var("patient_ids") -- true,
-            Var("admin_procedure_result") -- true,
-            Var("admin_procedure_type") -- true,
-            Var("admin_procedure_date") -- true,
-            Var("admin_patient_id") -- true,
+            Var("patient_ids") -- false,
+            Var("admin_procedure_result") -- false,
+            Var("admin_procedure_type") -- false,
+            Var("admin_procedure_date") -- false,
+            Var("admin_patient_id") -- false,
             Var("patient_input") -- false,
-            Var("procedure_result") -- false,
-            Var("procedure_type") -- false,
-            Var("procedure_date") -- true,
+            Var("procedure_result") -- true,
+            Var("procedure_type") -- true,
+            Var("procedure_date") -- false,
             Var("patient_id") -- true,
+            Var("taken_time") -- false,
         )
 
         val stmt = Stmts(List(
             Var("patient_id") := Var("patient_input"),
             Var("admin_procedure_result") := Var("procedure_results"),
             Var("admin_procedure_type") := Var("procedure_types"),
-            Var("admin_procedure_date") := Var("procedure_dates"),
+            Var("admin_procedure_date") := Var("procedure_dates") ,
             Var("admin_patient_id") := Var("patient_ids"),
+            Var("taken_time") := Var("patient_ids"),
             While_(
-                Var("admin_patient_id"),
+                Var("taken_time"),
                 stmts(
                 If_(
-                    Var("patient_id") === Var("admin_patient_id") && Var("procedure_date") === Var("admin_procedure_date"),
+                    Var("patient_input") === Var("admin_patient_id") && Var("procedure_date") === Var("admin_procedure_date"),
                     stmts(
                     Var("procedure_result") := Var("admin_procedure_result"),
                     Var("procedure_type") := Var("admin_procedure_type")
                     ),
-                    EmptyStmt
+                    Var("taken_time") := Var("patient_ids"),
                 ),
                 Var("admin_procedure_result") := Var("procedure_results"),
                 Var("admin_procedure_type") := Var("procedure_types"),
-                Var("admin_procedure_date") := Var("procedure_dates"),
-                Var("admin_patient_id") := Var("patient_ids"), 
+                Var("admin_procedure_date") := Var("procedure_dates") ,
+                Var("admin_patient_id") := Var("patient_ids")
                 )
             )
         ))
