@@ -1,5 +1,6 @@
 package example
 
 object Hello extends App {
-    analysis.run
+//   analysis.run
+  rulesAnalysis.test
 }

@@ -2,6 +2,9 @@ package example
 
 import infoFlowAST._
 import scala.xml.dtd.Decl
+import rulesLattice._
+
+import types._
 
 object infoFlowAST {
 
@@ -37,34 +40,36 @@ object infoFlowAST {
     case class While_(b: ExprBool, s: InfoFlowStmt) extends InfoFlowStmt
     case object EmptyStmt extends InfoFlowStmt
 
-    /**
-     * act-as: We define that a program can run on behalf of a particular entity or role.
-      • The special construct if acts for(X,Y) then Z
-     checks if the current process X is allowed to assume authority Y
-     and if so, executes command Z with that authority;
-      */
-    case class ifActsFor(s1: InfoFlowStmt, reader: String, s2: InfoFlowStmt)
-        extends InfoFlowStmt //if
-
     /*
-  Declassify: When the program is acting as a participant p, then
-        it can declassify data, but only in two ways:
+  When the program is acting as a participant p, then
+        it can declassify data
          It can relax p’s constraint on data
          It can remove p’s constraint on data
      */
-    case class Declassify(s1: InfoFlowStmt) extends InfoFlowStmt //if
+    /** run s1 as reader
+     * act-as: We define that a program can run on behalf of a particular entity or role.
+      • if acts for(X,Y) then Z : if the current process X is allowed to executes command Z as authority Y
+      */
+    case class IfActsFor(process: String, asAuthority: String, privileged: InfoFlowStmt)
+        extends InfoFlowStmt //if
+
+    case class Declassify(s1: Expr, rules: RuleLattice) extends Expr //if
+    IfActsFor(
+      "proc1", // Annotated(Var("a"), Set(Rules("client", Set("chkr")))),
+      "chkr",
+      Var("a") := Declassify(Var("a"), Set(Rules("client", Set("chkr"))))
+    )
+    //  authority should >= privileged
+    case class DeclassifyAssign(v: Var, asAuthority: String, privileged: Expr)
+        extends InfoFlowStmt //if bool{client:chkr,chkr:chkr}
+
 //
     /* add permission to stmt like {client:chkr} */
-    case class Annotated(s1: InfoFlowStmt, rules: Seq[Rules]) extends InfoFlowStmt //if
+    case class Annotated(s1: Expr, rules: RuleLattice) extends InfoFlowStmt //if
 
     /* permission lattice p10 */
-    case class Rules(owner: String, reader: Seq[String])
+    case class Rules(owner: String, reader: Set[String])
 
-    ifActsFor(
-      EmptyStmt,
-      "chkr",
-      Declassify(Annotated(EmptyStmt, Seq(Rules("client", Seq("chkr")))))
-    )
   }
 
   implicit class opsBool(x: ExprBool) {
