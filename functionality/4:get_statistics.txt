@@ -7,9 +7,9 @@ integer Low procedure_result;
 integer Low procedure_type;
 
 # Test positivity statistics
-integer Low tests_count;
-integer Low tests_positive;
-float Low test_positivity_percentage;
+integer High tests_count;
+integer High tests_positive;
+float High test_positivity_percentage;
 
 # Calculate the overall test positivity
 tests_count := 0;

@@ -10,13 +10,13 @@ import com.doofin.stdScala._
 object get_statistics {
     def get_statistics_data = {
         val levs: InfoLevMap = Map(
-            Var("procedure_results") -- true,
-            Var("procedure_types") -- true,
+            Var("procedure_results") -- false,
+            Var("procedure_types") -- false,
             Var("procedure_result") -- false,
             Var("procedure_type") -- false,
-            Var("tests_count") -- false,
-            Var("tests_positive") -- false,
-            Var("test_positivity_percentage") -- false,
+            Var("tests_count") -- true,
+            Var("tests_positive") -- true,
+            Var("test_positivity_percentage") -- true,
         )
 
         val stmt = Stmts(List(
