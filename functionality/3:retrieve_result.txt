@@ -1,21 +1,21 @@
 # Procedure (test, vaccination) data sources
-integer file Low procedure_results;
-integer file Low procedure_types;
+integer file High procedure_results;
+integer file High procedure_types;
 integer file Low procedure_dates;
 integer file Low patient_ids;
 
 # Procedure data itself
-integer Low admin_procedure_result;
-integer Low admin_procedure_type;
+integer High admin_procedure_result;
+integer High admin_procedure_type;
 integer Low admin_procedure_date;
 integer Low admin_patient_id;
 
 # Patients data
 integer file Low patient_input;
-integer Low procedure_result
-integer Low procedure_type
+integer High procedure_result
+integer High procedure_type
 integer Low procedure_date;
-integer Low patient_id;
+integer High patient_id;
 
 # Helpers
 integer Low taken_time;

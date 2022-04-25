@@ -11,12 +11,12 @@ import com.doofin.stdScala._
 object retrieve_results {
     def retrieve_results_data = {
         val levs: InfoLevMap = Map(
-            Var("procedure_results") -- false,
-            Var("procedure_types") -- false,
+            Var("procedure_results") -- true,
+            Var("procedure_types") -- true,
             Var("procedure_dates") -- false,
             Var("patient_ids") -- false,
-            Var("admin_procedure_result") -- false,
-            Var("admin_procedure_type") -- false,
+            Var("admin_procedure_result") -- true,
+            Var("admin_procedure_type") -- true,
             Var("admin_procedure_date") -- false,
             Var("admin_patient_id") -- false,
             Var("patient_input") -- false,
