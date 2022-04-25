@@ -1,21 +1,24 @@
 # Procedure (test, vaccination) data sources
-integer file Low procedure_results;
-integer file Low procedure_types;
+integer file High procedure_results;
+integer file High procedure_types;
 integer file Low procedure_dates;
-integer file High patient_ids;
+integer file Low patient_ids;
 
 # Procedure data itself
 integer High admin_procedure_result;
 integer High admin_procedure_type;
-integer High admin_procedure_date;
-integer High admin_patient_id;
+integer Low admin_procedure_date;
+integer Low admin_patient_id;
 
 # Patients data
 integer file Low patient_input;
-integer Low procedure_result
-integer Low procedure_type
-integer High procedure_date;
+integer High procedure_result
+integer High procedure_type
+integer Low procedure_date;
 integer High patient_id;
+
+# Helpers
+integer Low taken_time;
 
 # Patient enters their ID for the system
 input patient_id from patient_input;
@@ -26,11 +29,17 @@ input admin_procedure_type from procedure_types;
 input admin_procedure_date from procedure_dates;
 input admin_patient_id from patient_ids;
 
+
+# Go through all the patients
+input taken_time from patient_ids;
+
 # Find the user and save their procedure result
-while patient_id do
-    if patient_id == admin_patient_id and procedure_date == admin_procedure_date then
+while taken_time do
+    if patient_input == admin_patient_id and procedure_date == admin_procedure_date then
         procedure_result := admin_procedure_result
         procedure_type := admin_procedure_type
+    else
+        input taken_time from patient_ids;
 
     # Read from DB
     input admin_procedure_result from procedure_results;
