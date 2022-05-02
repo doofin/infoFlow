@@ -35,7 +35,7 @@ input taken_time from patient_ids;
 
 # Find the user and save their procedure result
 while taken_time do
-    if patient_input == admin_patient_id and procedure_date == admin_procedure_date then
+    if patient_id == admin_patient_id and procedure_date == admin_procedure_date then
         procedure_result := admin_procedure_result
         procedure_type := admin_procedure_type
     else

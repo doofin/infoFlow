@@ -1,6 +1,6 @@
 # Procedure (test, vaccination) data sources
-integer file High procedure_results;
-integer file High procedure_types;
+integer file Low procedure_results;
+integer file Low procedure_types;
 
 # Procedure data itself
 integer Low procedure_result;
