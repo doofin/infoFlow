@@ -15,7 +15,7 @@ integer file Low patient_input;
 integer High procedure_result
 integer High procedure_type
 integer Low procedure_date;
-integer High patient_id;
+integer Low patient_id;
 
 # Helpers
 integer Low taken_time;
