@@ -2,7 +2,7 @@ package example
 
 import infoFlowAST._
 import scala.xml.dtd.Decl
-import rulesLattice._
+import MeyerLattice._
 
 import types._
 
@@ -22,7 +22,9 @@ object infoFlowAST {
 
     case class Stmts(xs: List[InfoFlowStmt]) extends InfoFlowStmt
 
-    case class assign(nm: Var, a: Expr) extends InfoFlowStmt //var assignment :=
+    case class assign(nm: Var, a: Expr) extends InfoFlowStmt {
+      override def toString = { s"$nm := $a" }
+    } //var assignment :=
 
     object Expr {
       case object T extends ExprBool

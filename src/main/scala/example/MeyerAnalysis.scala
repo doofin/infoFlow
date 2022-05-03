@@ -4,12 +4,13 @@ import infoFlowAST._
 import infoFlowAST.InfoFlowStmt._
 
 import com.doofin.stdScala._
-import rulesLattice._
+import MeyerLattice._
 import types._
 
-object rulesAnalysis {
+// Meyer's
+object MeyerAnalysis {
   // returns (security class,is constraints satisified)
-  def checkRule(
+  def checkMeyer(
       st: InfoFlowStmt,
       initLev: RuleLatticeMap,
       actAs: Map[String, String]
@@ -79,26 +80,7 @@ object rulesAnalysis {
     checkStmt(st, initLev)
   }
 
-  def test = {
-    val initLevel: RuleLatticeMap = Map(
-      (Var("a"), Set(Rules("client", Set("chkr")), Rules("chkr", Set("chkr")))), // high lev
-      (Var("b"), Set(Rules("chkr", Set("chkr")))) // low lev
-    )
-    // a>=b, b := declassify a
-    val program1 = stmts(
-      IfActsFor(
-        "proc1", // process 1
-        "client", // act as client ("client" ok, "chkr" bad)
-        Var("b") := Declassify(Var("a"), Set(Rules("chkr", Set("chkr"))))
-      )
-    )
-    val actAsList = Map("proc2" -- "client")
-
-    val checkRes = checkRule(program1, initLevel, actAsList)
-    if (checkRes._2)
-      println("success,no error")
-    else println("violated")
-  }
+  
 }
 
 /*

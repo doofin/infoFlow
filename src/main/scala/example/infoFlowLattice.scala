@@ -2,6 +2,7 @@ package example
 
 import infoFlowAST._
 
+// Denning's
 object infoFlowLattice extends lattice[Boolean] {
 
   type InfoLev = Boolean // low:false,high:true

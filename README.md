@@ -11,6 +11,20 @@ then cd into this folder and in command line type (might take ~5 min):
 
 to test Denning's and Meyer's approach
 
+# output msg
+
+the output message like :
+
+`test case 0: testdata1: implicit flow in if block, a->b (should be false), result: false`
+
+
+means that test case 0 should be false (because of violation of info flow ),and the  result is false,matching expection.
+
+
+`! constraint failed at: If_(opR(Var(a),intValue(11),<=),Var(b) := intValue(10),Var(a) := intValue(100))`
+
+
+means that it fails at this specific program statement
 
 # Usage
 

@@ -8,7 +8,8 @@ import infoFlowAST.InfoFlowStmt._
 import com.doofin.stdScala._
 import types._
 
-object rulesLattice extends lattice[RuleLattice] {
+// Meyer's
+object MeyerLattice extends lattice[RuleLattice] {
 
   def owners(s: RuleLattice) = s.map(_.owner)
   def readers(s: RuleLattice, o: String) = s.find(_.owner == o).get.reader
