@@ -23,7 +23,7 @@ object retrieve_results {
             Var("procedure_result") -- true,
             Var("procedure_type") -- true,
             Var("procedure_date") -- false,
-            Var("patient_id") -- true,
+            Var("patient_id") -- false,
             Var("taken_time") -- false,
         )
 
@@ -38,7 +38,7 @@ object retrieve_results {
                 Var("taken_time"),
                 stmts(
                 If_(
-                    Var("patient_input") === Var("admin_patient_id") && Var("procedure_date") === Var("admin_procedure_date"),
+                    Var("patient_id") === Var("admin_patient_id") && Var("procedure_date") === Var("admin_procedure_date"),
                     stmts(
                     Var("procedure_result") := Var("admin_procedure_result"),
                     Var("procedure_type") := Var("admin_procedure_type")

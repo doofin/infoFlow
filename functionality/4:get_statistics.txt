@@ -1,6 +1,6 @@
 # Procedure (test, vaccination) data sources
-integer file High procedure_results;
-integer file High procedure_types;
+integer file Low procedure_results;
+integer file Low procedure_types;
 
 # Procedure data itself
 integer Low procedure_result;
@@ -30,4 +30,4 @@ while procedure_result do
     input procedure_result from procedure_results;
     input procedure_type from procedure_types;
 
-test_positivity_percentage := tests_positive / tests_count;
+output test_positivity_percentage := tests_positive / tests_count;

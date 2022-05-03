@@ -15,7 +15,7 @@ integer file Low patient_input;
 integer High procedure_result
 integer High procedure_type
 integer Low procedure_date;
-integer High patient_id;
+integer Low patient_id;
 
 # Helpers
 integer Low taken_time;
@@ -35,9 +35,9 @@ input taken_time from patient_ids;
 
 # Find the user and save their procedure result
 while taken_time do
-    if patient_input == admin_patient_id and procedure_date == admin_procedure_date then
-        procedure_result := admin_procedure_result
-        procedure_type := admin_procedure_type
+    if patient_id == admin_patient_id and procedure_date == admin_procedure_date then
+        output procedure_result := admin_procedure_result
+        output procedure_type := admin_procedure_type
     else
         input taken_time from patient_ids;
 
