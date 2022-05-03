@@ -14,6 +14,8 @@ object rulesLattice extends lattice[RuleLattice] {
   def readers(s: RuleLattice, o: String) = s.find(_.owner == o).get.reader
 
   override val bottom = Set()
+
+  // ⊑
   override def <=(a: RuleLattice, b: RuleLattice): Boolean = {
     (owners(a) subsetOf owners(b)) && (owners(a) forall (o => readers(b, o) subsetOf readers(a, o)))
   }

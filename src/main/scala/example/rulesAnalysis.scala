@@ -80,11 +80,28 @@ object rulesAnalysis {
   }
 
   def test = {
-    val initLev: RuleLatticeMap = Map(
+    val initLevel: RuleLatticeMap = Map(
       (Var("a"), Set(Rules("client", Set("chkr")), Rules("chkr", Set("chkr")))), // high lev
       (Var("b"), Set(Rules("chkr", Set("chkr")))) // low lev
     )
     // a>=b, b := declassify a
+    val program1 = stmts(
+      IfActsFor(
+        "proc1", // process 1
+        "client", // act as client ("client" ok, "chkr" bad)
+        Var("b") := Declassify(Var("a"), Set(Rules("chkr", Set("chkr"))))
+      )
+    )
+    val actAsList = Map("proc2" -- "client")
+
+    val checkRes = checkRule(program1, initLevel, actAsList)
+    if (checkRes._2)
+      println("success,no error")
+    else println("violated")
+  }
+}
+
+/*
     val stmt = stmts(
       DeclassifyAssign(
         Var("b"), // lower
@@ -92,25 +109,7 @@ object rulesAnalysis {
         Var("a") // higher
       )
     )
-
-    val st2 = stmts(
-      IfActsFor(
-        "proc1", // Annotated(Var("a"), Set(Rules("client", Set("chkr")))),
-        "client",
-        Var("b") := Declassify(Var("a"), Set(Rules("chkr", Set("chkr"))))
-      )
-    )
-
-
-    if (checkRule(st2, initLev = initLev, Map("proc2" -- "client"))._2)
-      println("success,no error")
-    else println("violated")
-  }
-}
-
-
-
-    /*     println(
+       println(
       "1<2",
       <=(
         Set(Rules("chkr", Set("chkr"))),
