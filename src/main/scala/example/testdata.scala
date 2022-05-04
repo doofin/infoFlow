@@ -25,7 +25,7 @@ object testdata {
         )
       )
     )
-    ("testdata1: implicit flow in if block, a->b (should be false)", levs, stmt)
+    (" implicit flow in if block is violated (should be false)", levs, stmt)
   }
 
   def testdata2 = {
@@ -42,7 +42,7 @@ object testdata {
         assign(Var("c"), Expr.intValue(1000))
       )
     )
-    ("testdata2: explicit flow for assignment a:=b (should be true)", levs, stmt)
+    (" explicit flow for assignment a:=b when a>b is fine (should be true)", levs, stmt)
   }
 
   def testdata3 = {
@@ -59,7 +59,7 @@ object testdata {
         assign(Var("c"), Expr.intValue(1000))
       )
     )
-    ("testdata3: explicit flow for assignment a:=b (should be true)", levs, stmt)
+    (" explicit flow for assignment a:=b  is fine (should be true)", levs, stmt)
   }
 
   def testdata4 = {
@@ -80,6 +80,6 @@ object testdata {
         While_(Var("a") && Var("b"), EmptyStmt)
       )
     )
-    ("testdata4: explicit flow for assignment a:=b (should be false)", levs, stmt)
+    (" explicit flow for assignment a:=b (should be false)", levs, stmt)
   }
 }

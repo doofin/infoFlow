@@ -26,21 +26,28 @@ object analysisDemo {
         retrieve_results.retrieve_results_data,
         get_statistics.get_statistics_data
       ).zipWithIndex foreach { case ((name, lev, stmt), i) =>
+        println(s"testing case $i: " + name)
         val res = checkInfoFlow(stmt, lev)
-        println(s"test case $i: " + name + ", result: " + res._2)
+        val rc =
+          if (res._2) strGreen(res._2.toString())
+          else strRed(res._2.toString())
+
+        println(s"test case $i result: " + rc)
       }
     }
 
     encloseDebug("Meyer's") {
-      Seq(MeyerTest1, MeyerTest2, MeyerTest3).zipWithIndex foreach {
+      Seq(MeyerTest1, MeyerTest2).zipWithIndex foreach {
         case ((program1, initLevel, actAsList, desc), i) =>
+          println(s"testing case $i: " + desc)
+
           val checkRes = checkMeyer(program1, initLevel, actAsList)
           val msg =
             if (checkRes._2)
-              "success"
-            else "failed"
+              strGreen("success")
+            else strRed("failed")
 
-          println(s"test case $i: ", desc, "result:" + msg)
+          println(s"test case $i result: " + msg)
       }
     }
   }
@@ -63,13 +70,13 @@ object analysisDemo {
       )
     )
 
-    (program1, initLevel, actAsList, "proc2 can act as client (should be success)")
+    (program1, initLevel, actAsList, "proc1 act as client can declassify (should be success)")
 
   }
 
   def MeyerTest2 = {
-    // allow proc2 to act as client
-    val actAsList = Map("proc1" -- "client")
+    // allow proc1 to act as chkr
+    val actAsList = Map("proc1" -- "chkr")
 
     // secure level for vars
     val initLevel: RuleLatticeMap = Map(
@@ -85,7 +92,7 @@ object analysisDemo {
       )
     )
 
-    (program1, initLevel, actAsList, "proc2 can't act as chkr (should be failed)")
+    (program1, initLevel, actAsList, "proc1 act as chkr can't declassify(should be failed)")
 
   }
 

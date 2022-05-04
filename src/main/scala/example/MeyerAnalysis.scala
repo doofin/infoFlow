@@ -7,6 +7,7 @@ import com.doofin.stdScala._
 import MeyerLattice._
 import types._
 
+import scala.io.AnsiColor._
 // Meyer's
 object MeyerAnalysis {
   // returns (security class,is constraints satisified)
@@ -71,8 +72,13 @@ object MeyerAnalysis {
       }
 
       if (!r._2) {
-        println("! constraint failed at: ")
-        ppc(st)
+
+        st match {
+          case Stmts(xs) =>
+          case x =>
+            println("constraint failed at below ! : ")
+            ppc(x)
+        }
       }
       r
     }
@@ -80,7 +86,6 @@ object MeyerAnalysis {
     checkStmt(st, initLev)
   }
 
-  
 }
 
 /*

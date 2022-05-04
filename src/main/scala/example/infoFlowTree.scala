@@ -52,8 +52,15 @@ object infoFlowTree {
     }
 
     if (!r._2) {
-      println("! constraint failed at: " + st)
+
+      st match {
+        case Stmts(xs) =>
+        case x =>
+          println("constraint failed at below ! : ")
+          println(x)
+      }
     }
+
     r
   }
 }
