@@ -55,19 +55,19 @@ object infoFlowAST {
     case class IfActsFor(process: String, asAuthority: String, privileged: InfoFlowStmt)
         extends InfoFlowStmt //if
 
-    case class Declassify(s1: Expr, rules: RuleLattice) extends Expr //if
-    IfActsFor(
+    case class Declassify(s1: Expr, rules: MeyerLattice) extends Expr //if
+    /*     IfActsFor(
       "proc1", // Annotated(Var("a"), Set(Rules("client", Set("chkr")))),
       "chkr",
       Var("a") := Declassify(Var("a"), Set(Rules("client", Set("chkr"))))
-    )
+    ) */
     //  authority should >= privileged
     case class DeclassifyAssign(v: Var, asAuthority: String, privileged: Expr)
         extends InfoFlowStmt //if bool{client:chkr,chkr:chkr}
 
 //
     /* add permission to stmt like {client:chkr} */
-    case class Annotated(s1: Expr, rules: RuleLattice) extends InfoFlowStmt //if
+    case class Annotated(s1: Expr, rules: MeyerLattice) extends InfoFlowStmt //if
 
     /* permission lattice p10 */
     case class Rules(owner: String, reader: Set[String])

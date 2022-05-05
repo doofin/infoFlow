@@ -8,6 +8,6 @@ import infoFlowAST.InfoFlowStmt._
 import com.doofin.stdScala._
 
 object types {
-  type RuleLattice = Set[Rules]
-  type RuleLatticeMap = Map[Var, RuleLattice] // add bottom type mutable.Map[Var, Interval]
+  type MeyerLattice = Set[Rules]
+  type MeyerLatticeMap = Map[Var, MeyerLattice] // add bottom type mutable.Map[Var, Interval]
 }

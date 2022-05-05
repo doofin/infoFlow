@@ -37,7 +37,7 @@ object analysisDemo {
     }
 
     encloseDebug("Meyer's") {
-      Seq(MeyerTest1, MeyerTest2).zipWithIndex foreach {
+      Seq(MeyerTest1, MeyerTest2, get_statistics_meyer.statistics_meyer).zipWithIndex foreach {
         case ((program1, initLevel, actAsList, desc), i) =>
           println(s"testing case $i: " + desc)
 
@@ -57,7 +57,7 @@ object analysisDemo {
     val actAsList = Map("proc1" -- "client")
 
     // secure level for vars
-    val initLevel: RuleLatticeMap = Map(
+    val initLevel: MeyerLatticeMap = Map(
       (Var("a"), Set(Rules("client", Set("chkr")), Rules("chkr", Set("chkr")))), // high lev
       (Var("b"), Set(Rules("chkr", Set("chkr")))) // low lev
     )
@@ -79,7 +79,7 @@ object analysisDemo {
     val actAsList = Map("proc1" -- "chkr")
 
     // secure level for vars
-    val initLevel: RuleLatticeMap = Map(
+    val initLevel: MeyerLatticeMap = Map(
       (Var("a"), Set(Rules("client", Set("chkr")), Rules("chkr", Set("chkr")))), // high lev
       (Var("b"), Set(Rules("chkr", Set("chkr")))) // low lev
     )
@@ -101,7 +101,7 @@ object analysisDemo {
     val actAsList = Map("proc1" -- "chkr")
 
     // secure level for vars
-    val initLevel: RuleLatticeMap = Map(
+    val initLevel: MeyerLatticeMap = Map(
       (Var("a"), Set(Rules("client", Set("chkr")), Rules("chkr", Set("chkr")))), // high lev
       (Var("b"), Set(Rules("chkr", Set("chkr")))) // low lev
     )

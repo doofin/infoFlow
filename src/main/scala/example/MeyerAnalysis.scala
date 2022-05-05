@@ -13,14 +13,14 @@ object MeyerAnalysis {
   // returns (security class,is constraints satisified)
   def checkMeyer(
       st: InfoFlowStmt,
-      initLev: RuleLatticeMap,
+      initLev: MeyerLatticeMap,
       actAs: Map[String, String]
-  ): (RuleLattice, Boolean) = {
+  ): (MeyerLattice, Boolean) = {
     def checkStmt(
         st: InfoFlowStmt,
-        initLev: RuleLatticeMap
-    ): (RuleLattice, Boolean) = { //(RuleLattice, isOK)
-      def checkExpr(e: Expr): RuleLattice = {
+        initLev: MeyerLatticeMap
+    ): (MeyerLattice, Boolean) = { //(RuleLattice, isOK)
+      def checkExpr(e: Expr): MeyerLattice = {
         e match {
           case x: Var => initLev(x)
           case bool: ExprBool =>
@@ -41,7 +41,7 @@ object MeyerAnalysis {
         }
       }
 
-      val r: (RuleLattice, Boolean) = st match {
+      val r: (MeyerLattice, Boolean) = st match {
         case IfActsFor(process, asAuthority, assign(v, Declassify(expr, rules))) =>
           val actAsOk =
             actAs.get(process) match {
@@ -50,31 +50,64 @@ object MeyerAnalysis {
             }
           if (!actAsOk) println(process + "can't act as " + asAuthority + " !")
           val ownerRemoved = checkExpr(expr).filterNot(_.owner == asAuthority)
-          val ok = <=(ownerRemoved, rules) && <=(rules, initLev(v)) && actAsOk
-          (checkExpr(v), ok)
+          val rulesOrder = <=(ownerRemoved, rules) && <=(rules, initLev(v))
+          if (!rulesOrder) println("rulesOrder violated:", ownerRemoved, rules, initLev(v))
+          (checkExpr(v), rulesOrder && actAsOk)
         case DeclassifyAssign(v, asAuthority, expr) =>
           (checkExpr(v), <=(checkExpr(expr).filterNot(_.owner == asAuthority), initLev(v)))
         case Stmts(xs) =>
           val resList = xs.map(checkStmt(_, initLev))
           (resList.map(_._1).reduce(glb), resList.forall(_._2))
         case assign(nm, e) =>
+          /* if (nm.x contains ("test")) {
+            println("assign:")
+            ppc(
+              (
+                assign(nm, e),
+                checkExpr(nm),
+                (checkExpr(e), initLev(nm)),
+                <=(checkExpr(e), initLev(nm))
+              )
+            )
+
+          } */
           (checkExpr(nm), <=(checkExpr(e), initLev(nm)))
         case InfoFlowStmt.If_(b, s1, s2) =>
           val s1r = checkStmt(s1, initLev)._1
           val s2r = checkStmt(s2, initLev)._1
-          val lowerB = glb(s1r, s2r)
+
+          // todo : ad hoc method to deal with EmptyStmt which should have no effect!
+          val lowerB =
+            (s1 == EmptyStmt, s2 == EmptyStmt) match {
+              case (true, _) => s2r
+              case (_, true) => s1r
+              case _         => glb(s1r, s2r)
+            }
+
+          /*           println("If_:")
+          ppc(
+            (
+              InfoFlowStmt.If_(b, s1, s2),
+              checkExpr(b),
+              lowerB,
+              <=(checkExpr(b), lowerB)
+            )
+          )
+
+           */
           (lowerB, <=(checkExpr(b), lowerB))
         case While_(b, s1) =>
           val s1r = checkStmt(s1, initLev)._1
           (s1r, <=(checkExpr(b), s1r))
-        case EmptyStmt => (bottom, true)
+        case EmptyStmt => (bottom, true) // should have no effect!
         case _         => ???
       }
 
       if (!r._2) {
 
         st match {
-          case Stmts(xs) =>
+          case Stmts(xs)    =>
+          case While_(b, s) =>
           case x =>
             println("constraint failed at below ! : ")
             ppc(x)
