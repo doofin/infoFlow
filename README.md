@@ -1,5 +1,6 @@
 # 02244 Logic For Security Spring 2022 at DTU
 
+https://kurser.dtu.dk/course/02244
 
 # Run
 
